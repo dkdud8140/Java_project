@@ -1,0 +1,89 @@
+package com.callor.game.impl;
+
+import com.callor.game.model.DealerDeckVO;
+import com.callor.game.model.DeckVO;
+import com.callor.game.model.GamerDeckVO;
+import com.callor.game.model.GamerMoneyVO;
+import com.callor.game.service.GameRule;
+
+public class GameRuleImplV1 implements GameRule {
+
+	DeckVO deckVO;
+	DealerDeckVO dealerDeckVO;
+	GamerDeckVO gamerDeckVO;
+	GamerMoneyVO gamerMoney;
+
+	public GameRuleImplV1() {
+
+		deckVO = new DeckVO();
+		dealerDeckVO = new DealerDeckVO();
+		gamerDeckVO = new GamerDeckVO();
+		gamerMoney = new GamerMoneyVO();
+	
+		
+	}
+
+	@Override
+	public void gameMain() {
+		System.out.println("*".repeat(36));
+		System.out.println("*" + "            " + "블랙잭게임" + "            " + "*");
+		System.out.println("*".repeat(36));
+
+		System.out.println("\n현재 겜블러의 재산은"+gamerMoney.getGamerMoney()+"원 입니다.");
+
+		System.out.println("-".repeat(36));
+		System.out.println("게임을 시작하시겠습니까?");
+		System.out.println("▷ GO : 게임하기");
+		System.out.println("▷ QUIT : 그만하기");
+		System.out.println("-".repeat(36));
+	}
+
+	@Override
+	public void bettingMoney() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void shuffleCard() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void blackJackMain() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void insurance() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void doubleDown() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void Split() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void hitOrStand() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resultMoney() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

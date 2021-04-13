@@ -1,0 +1,15 @@
+package com.callor.game.model;
+
+import java.util.List;
+import java.util.Random;
+
+public class DealerDeckVO {
+
+	private List<DeckVO> dDeck ; 
+	
+	protected Random rnd ;
+	
+	public DealerDeckVO() {
+		rnd.nextInt();
+	}
+}

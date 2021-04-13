@@ -1,0 +1,7 @@
+package com.callor.game.model;
+
+public class GamerMoneyVO {
+
+	private final int startMoney = 10000;
+	
+}

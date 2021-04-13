@@ -1,0 +1,5 @@
+package com.callor.game.service;
+
+public interface GameRule {
+
+}

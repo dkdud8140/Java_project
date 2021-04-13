@@ -1,0 +1,34 @@
+package com.callor.game.model;
+
+import java.util.List;
+import java.util.Random;
+
+public class DealerDeckVO {
+
+	private List<DeckVO> dDeck;
+
+	protected Random rnd;
+
+	public DealerDeckVO() {
+		rnd = new Random();
+	}
+
+	public void firstdDeck() {
+
+		int intCard1 = rnd.nextInt(52);
+		int intCard2 ;
+		
+		while (true) {
+			intCard2 = rnd.nextInt(52);
+			if (intCard2 == 0) {
+				continue;
+			}
+			break ;
+		}
+		
+		dDeck
+		
+
+	}
+
+}

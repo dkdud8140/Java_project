@@ -1,0 +1,27 @@
+package com.callor.game.model;
+
+import java.util.Scanner;
+
+public class GamerMoneyVO {
+
+	private int startMoney = 10000; 	//처음 자본은 10000원으로 동일
+
+	protected Scanner scan ;
+	
+	public GamerMoneyVO() {
+		scan = new Scanner(System.in) ;
+	}
+	
+	public int bettingMoney() {
+		
+		
+		
+		
+	}
+	
+	
+	public int getGamerMoney() {
+		return startMoney ;
+	}
+	
+}

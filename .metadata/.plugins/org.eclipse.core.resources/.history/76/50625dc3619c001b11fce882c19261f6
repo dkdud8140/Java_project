@@ -1,0 +1,6 @@
+package com.callor.game.model;
+
+public class DeckVO {
+
+	//카드는 조커를 제외하고 52장 
+}

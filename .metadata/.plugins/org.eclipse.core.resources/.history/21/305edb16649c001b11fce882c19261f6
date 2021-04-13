@@ -1,0 +1,50 @@
+package com.callor.game.model;
+
+public class DeckVO {
+
+	//카드는 조커를 제외하고 52장 
+	
+	private String cardName[];
+	private Character cardMark[];
+	private String markName[];
+	private String cardNumber[] ;
+	
+	private int cardScore[] ;
+	
+	
+	public DeckVO() {
+
+		cardName = new String[52];
+		cardMark = new Character[] {'◆', '♥', '♣', '♠' } ;
+		markName = new String[] {"다이아몬드", "하트", "클로버", "스페이드" };
+		cardNumber = new String[] {"A","2","3","4","5","6","7","8","9","10","J","Q","K"} ;
+		
+		cardScore = new int[52];
+		
+	}
+	
+	protected void cardNameMaker() {
+		
+		for(int i = 0 ; i < 4 ; i ++) {
+			
+			for(int j = 0 ; j < 13 ; j ++) {
+
+				cardName[(j+1) + (13*i)] = cardMark[i] + markName[i] + " A " + cardMark[i] ;
+				
+				for(int n = 1 ; n < 10 ; n ++) {
+					cardName[(n+1) + (13*i)] = cardMark[i] + markName[i] + (n+1) + cardMark[i] ;
+				}
+				
+				cardName[(j+1) + (13*i)] = cardMark[i] + markName[i] + " A " + cardMark[i] ;
+			}
+			
+			
+		}
+		
+		
+		
+	}
+	
+	
+	
+}

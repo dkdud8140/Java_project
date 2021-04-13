@@ -1,0 +1,12 @@
+package com.callor.game.model;
+
+public class GamerMoneyVO {
+
+	private int startMoney = 10000; 	//처음 자본은 10000원으로 동일
+
+	public int getGamerMoney() {
+		
+		return startMoney ;
+	}
+	
+}
