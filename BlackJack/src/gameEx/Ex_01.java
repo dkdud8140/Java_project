@@ -18,6 +18,7 @@ public class Ex_01 {
 		GameRule blackJack = new GameRuleImplV1();
 
 		blackJack.gameMain();
+//		blackJack.shuffleDeck();
 
 	}
 }

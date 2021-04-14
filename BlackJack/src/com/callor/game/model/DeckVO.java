@@ -59,6 +59,11 @@ public class DeckVO {
 	
 	
 	
+	public String[] getCardDeck() {
+			return this.cardName;
+	}
+	
+	
 	public String getCardName(int num) {
 		return cardName[num] ;
 	}
