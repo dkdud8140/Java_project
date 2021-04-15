@@ -5,24 +5,29 @@ import java.util.List;
 import java.util.Random;
 
 import com.heart.model.DeckMaker;
-import com.heart.model.DeckVO;
 import com.heart.model.DeckVO2_cho;
 
 public class BlackJackRule_cho extends BlackJackRuleimplV1 {
 
-	DeckMaker dM;
+	
+	List<DeckVO2_cho> deckList ;
 
 	Random rnd = new Random();
-
+	
+	private int num = 0 ;
+	
+	
 	public BlackJackRule_cho() {
-		dM = new DeckMaker();
 	}
 
+	
+	
+	
 	@Override
 	public void suffleDeck() {
 		// TODO 카드 덱 셔플
-
-		List<DeckVO2_cho> deckList = dM.cardMaker();
+		DeckMaker dM = new DeckMaker();
+		deckList = dM.cardMaker();
 
 		Collections.shuffle(deckList);  
 		
@@ -33,9 +38,21 @@ public class BlackJackRule_cho extends BlackJackRuleimplV1 {
 
 	}
 
+	// playScreen에서 참조값 num 설정해두어야 한다. 
 	@Override
-	public void handDeck() {
+	public void handDeck (List<DeckVO2_cho> list ) {
+		DeckVO2_cho vo = new DeckVO2_cho();
 
+		vo = deckList.get(num);
+		
+		vo.getDeckName() ;
+		vo.getDeckScore() ;
+		
+		num++ ;
+		
+		list.add(vo) ;
+		
+		return ;
 
 	}
 
