@@ -3,16 +3,16 @@ package com.heart.impl;
 import java.util.List;
 import java.util.Scanner;
 
-import com.heart.model.DeckVO2_cho;
+import com.heart.model.DeckVO;
 import com.heart.service.BlackjackRule;
 
-public class BlackJackRuleimplV1 implements BlackjackRule {
+public class BlackJackRuleImplV1 implements BlackjackRule {
 
 	Scanner scan ; 
 	
 	
 	
-	public BlackJackRuleimplV1() {
+	public BlackJackRuleImplV1() {
 
 		scan = new Scanner(System.in) ;
 	}
@@ -88,7 +88,7 @@ public class BlackJackRuleimplV1 implements BlackjackRule {
 	}
 
 	@Override
-	public void handDeck(List<DeckVO2_cho> list) {
+	public void handDeck(List<DeckVO> list) {
 		// TODO Auto-generated method stub
 
 	}

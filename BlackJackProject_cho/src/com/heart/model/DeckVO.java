@@ -2,23 +2,34 @@ package com.heart.model;
 
 public class DeckVO {
 
-	String deckName ; 
-	String deckScore ;
-	
-	
-	
-	public String getDeckName() {
-		return deckName;
+	   String deck ; 
+	   Integer value ;
+
+	   
+	   @Override
+	public String toString() {
+		return "DeckVO [deck=" + deck + ", value=" + value + "]";
 	}
-	public void setDeckName(String deckName) {
-		this.deckName = deckName;
+
+
+	public String getDeck() {
+		return deck;
 	}
-	public String getDeckScore() {
-		return deckScore;
+
+
+	public void setDeck(String deck) {
+		this.deck = deck;
 	}
-	public void setDeckScore(String deckScore) {
-		this.deckScore = deckScore;
+
+
+	public Integer getValue() {
+		return value;
 	}
-	
-	
-}
+
+
+	public void setValue(Integer value) {
+		this.value = value;
+	}
+	 
+	   
+	}
