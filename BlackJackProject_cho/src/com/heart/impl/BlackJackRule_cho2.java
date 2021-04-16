@@ -41,10 +41,10 @@ public class BlackJackRule_cho2 extends BlackJackRuleImplV1 {
 		
 		Collections.shuffle(deckList);  
 		
-		for (int i = 0; i < deckList.size(); i++) {
-			DeckVO vo = deckList.get(i);
-			System.out.println(vo.getDeck() + "\t" + vo.getValue());
-		}
+//		for (int i = 0; i < deckList.size(); i++) {
+//			DeckVO vo = deckList.get(i);
+//			System.out.println(vo.getDeck() + " : " + vo.getValue());
+//		}
 
 	}
 

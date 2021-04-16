@@ -40,21 +40,21 @@ public class BlackJackRule_cho extends BlackJackRuleImplV1 {
 	}
 
 	// playScreen에서 참조값 num 설정해두어야 한다. 
-	@Override
-	public void handDeck (List<DeckVO> list ) {
-		DeckVO vo = new DeckVO2_cho();
-
-		vo = deckList.get(num);
-		
-		vo.getDeckName() ;
-		vo.getDeckScore() ;
-		
-		num++ ;
-		
-		list.add(vo) ;
-		
-		return ;
-
-	}
+//	@Override
+//	public void handDeck (List<DeckVO> list ) {
+//		DeckVO vo = new DeckVO2_cho();
+//
+//		vo = deckList.get(num);
+//		
+//		vo.getDeckName() ;
+//		vo.getDeckScore() ;
+//		
+//		num++ ;
+//		
+//		list.add(vo) ;
+//		
+//		return ;
+//
+//	}
 
 }
