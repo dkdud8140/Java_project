@@ -49,12 +49,20 @@ public class BlackJackRule_cho2 extends BlackJackRuleImplV1 {
 		
 		DeckVO vo = deckList.get(num);
 		
-		vo.getDeck() ;
-		vo.getValue() ;
+		Integer sum = vo.getValue() ;
 		
-		num++ ;
+		int listSize = list.size();
+		
+		for(int i = 0 ; i < listSize ; i ++) {
+			DeckVO sumVO = list.get(i) ;
+			sum += sumVO.getValue() ;
+		}
+		
+		vo.setValueSum(sum);
+		
 		
 		list.add(vo) ;
+		num++ ;
 
 	}
 

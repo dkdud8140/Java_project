@@ -15,97 +15,42 @@ public class Ex_01 {
 		List<DeckVO> playerList = new ArrayList<DeckVO>();
 		List<DeckVO> dealerList = new ArrayList<DeckVO>();
 
-		//1차 배분
-		ex.suffleDeck();
-		ex.handDeck(playerList);
-		ex.handDeck(playerList);
-		
-		int nSizeP = playerList.size();
+		for (int j = 0; j < 5; j++) {
+			// 1차 배분
+			ex.suffleDeck();
+			ex.handDeck(playerList);
 
-		for (int i = 0; i < nSizeP; i++) {
-			DeckVO vo = playerList.get(i);
+			int nSizeP = playerList.size();
+			
+			for (int i = 0; i < nSizeP; i++) {
+				DeckVO vo = playerList.get(i);
 
-			System.out.print(vo.getDeck() + " : ");
-			System.out.println(vo.getValue());
+				System.out.print(vo.getDeck() + " : ");
+				System.out.println(vo.getValue());
+			}
+
+			DeckVO voP = playerList.get(nSizeP-1);
+			System.out.println("합 : " + voP.getValueSum());
+			System.out.println();
+			System.out.println("------------------");
+
+			ex.handDeck(dealerList);
+
+			int nSizeD = dealerList.size();
+
+			for (int i = 0; i < nSizeD; i++) {
+				DeckVO vo = dealerList.get(i);
+
+				System.out.print(vo.getDeck() + " : ");
+				System.out.println(vo.getValue());
+			}
+
+			DeckVO voD = dealerList.get(nSizeD-1);
+			System.out.println("합 : " + voD.getValueSum());
+			System.out.println();
+			System.out.println("=================");
+
 		}
-		System.out.println("------------------");
 
-		ex.handDeck(dealerList);
-		ex.handDeck(dealerList);
-
-		int nSizeD = dealerList.size();
-
-		for (int i = 0; i < nSizeD; i++) {
-			DeckVO vo = dealerList.get(i);
-
-			System.out.print(vo.getDeck() + " : ");
-			System.out.println(vo.getValue());
-		}
-		System.out.println("=================");
-		
-		//2차 배분
-		ex.suffleDeck();
-		ex.handDeck(playerList);
-		ex.handDeck(playerList);
-		
-		nSizeP = playerList.size();
-
-		for (int i = 0; i < nSizeP; i++) {
-			DeckVO vo = playerList.get(i);
-
-			System.out.print(vo.getDeck() + " : ");
-			System.out.println(vo.getValue());
-		}
-		System.out.println("------------------");
-
-		ex.handDeck(dealerList);
-		ex.handDeck(dealerList);
-
-		nSizeD = dealerList.size();
-
-		for (int i = 0; i < nSizeD; i++) {
-			DeckVO vo = dealerList.get(i);
-
-			System.out.print(vo.getDeck() + " : ");
-			System.out.println(vo.getValue());
-		}
-		System.out.println("=================");
-				
-		
-		//2차 배분
-		ex.suffleDeck();
-		ex.handDeck(playerList);
-		ex.handDeck(playerList);
-		
-		nSizeP = playerList.size();
-
-		for (int i = 0; i < nSizeP; i++) {
-			DeckVO vo = playerList.get(i);
-
-			System.out.print(vo.getDeck() + " : ");
-			System.out.println(vo.getValue());
-		}
-		System.out.println("------------------");
-
-		ex.handDeck(dealerList);
-		ex.handDeck(dealerList);
-
-		nSizeD = dealerList.size();
-
-		for (int i = 0; i < nSizeD; i++) {
-			DeckVO vo = dealerList.get(i);
-
-			System.out.print(vo.getDeck() + " : ");
-			System.out.println(vo.getValue());
-		}
-		System.out.println("=================");		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 }
