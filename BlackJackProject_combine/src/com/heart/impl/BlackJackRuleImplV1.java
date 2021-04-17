@@ -109,23 +109,48 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		System.out.println(dealerList.get(0).getDeck());
 		System.out.println("????");
 		System.out.println("-".repeat(lineNum * 2));
-		
+
 		this.handDeck(playerList); // 플레이어 카드 리스트에 카드 두 장 추가
 		this.handDeck(playerList);
 
-		System.out.println( playerName + "카드는 다음과 같습니다.");
+		System.out.println(playerName + "카드는 다음과 같습니다.");
 		System.out.println(playerList.get(0).getDeck());
 		System.out.println(playerList.get(1).getDeck());
+		System.out.println("플레이어의 점수 합 : " + pSum);
 		System.out.println("-".repeat(lineNum * 2));
-		
-		
-		this.hitAndStand();
-		
+
+		boolean bjPC = this.checkBJ(playerList);
+
+		if (!bjPC) {
+			this.hitAndStand();
+		}
+
+//		if (bjPC) { // 플레이어가 블랙잭이라면
+//
+//			if (checkBJ(dealerList)) { // 딜러도 확인해보고 딜러도 블랙잭이라면
+//				this.push(); // 무승부로 돈계산
+//			} else {
+//				this.win_bj(); // 딜러는 블랙잭이 아니라면 플레이어 win으로 돈계산
+//			}
+//
+//		} else if (checkBJ(dealerList)) {
+//			lose(); // 플레이어 lose로 돈계산
+//		} else {
+//			hitAndStand(); // 플레이어, 딜러 둘 다 블랙잭이 아니면 힛앤스탠드 함수 실행
+//		}
+
+		// bjC == true
+
+		boolean bjDC = this.checkBJ(dealerList);
+
+		if (!bjDC) {
+			this.hitAndStand();
+		}
+
+		// 결과확인창
+
 	}
 
-	
-	
-	
 	@Override
 	public void inputGamer() {
 		// TODO 플레이어의 정보 입력
@@ -194,8 +219,16 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 	}
 
 	@Override
-	public void checkBJ() {
-		// TODO Auto-generated method stub
+	public Boolean checkBJ(List<DeckVO> list) {
+		// TODO 김소정
+
+		if (list.get(0).getValue() == 1 && list.get(1).getValue() == 10) {
+			return true;
+		} else if (list.get(1).getValue() == 1 && list.get(0).getValue() == 10) {
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 
@@ -253,13 +286,18 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 	// TODO 플레이어의 카드 점수가 합산되는 히트 메서드
 	protected Integer gamerHit() {
 		this.handDeck(playerList); // 점수 합까지 추가될 예정
-		Integer sum = null;
-		
+		Integer sum = 0;
+
 		int nSize = playerList.size();
 		for (int i = 0; i < nSize; i++) {
 			DeckVO vo = playerList.get(i);
 			sum += vo.getValue();
 		}
+
+		for (int i = 0; i < nSize; i++) {
+			System.out.println(playerList.get(i).getDeck());
+		}
+		System.out.println("플레이어의 점수 합 : " + sum);
 		return sum;
 		// 리턴 썸값
 	}
@@ -268,9 +306,9 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 	protected Integer dealerHit() {
 		// 딜러 카드 가져오기
 		this.handDeck(dealerList);
-		Integer sum = null;
-		for (int i = 0; i < playerList.size(); i++) {
-			DeckVO vo = playerList.get(i);
+		Integer sum = 0;
+		for (int i = 0; i < dealerList.size(); i++) {
+			DeckVO vo = dealerList.get(i);
 			sum += vo.getValue();
 		}
 		return sum;
@@ -284,8 +322,49 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 
 	@Override
 	public void gamerMoney() {
-		// TODO Auto-generated method stub
+		// TODO 돈계산
+		// 플레이어, 딜러 둘 다 블랙잭,BUST 아님
+		// 양 쪽 점수 비교
+		if (pSum > dSum) {
+			win();
+		} else if (dSum > pSum) {
+			lose();
+		} else if (dSum == pSum) {
+			push();
+		}
+	}
 
+	public void win_bj() {
+		// TODO 플레이어가 블랙잭으로 이겼을 경우
+		playerMoney += ((float) betMoney * 2.5);
+	}
+
+	public void win() {
+		// TODO 플레이어가 이겼을 경우 돈계산
+		// 양쪽 카드 오픈 후 플레이어 점수 합이 더 높을 때
+		// (플레이어는 BUST가 아니고) 딜러가 BUST일 때
+
+		// 배팅금의 2배 돌려받음
+		playerMoney += (betMoney * 2);
+	}
+
+	public void lose() {
+		// TODO 플레이어가 졌을 경우 돈계산
+		// 플레이어가 BUST일 때
+		// 양쪽 카드 오픈 후 딜러 점수 합이 더 높을 때
+		// (플레이어는 블랙잭이 아니고) 딜러가 블랙잭일 때
+
+		// 배팅금 잃은 거라 그대로임
+		return;
+	}
+
+	public void push() {
+		// TODO 비겼을 경우 돈계산
+		// 양쪽 카드 오픈 후 플레이어와 딜러 점수 합이 같을 때
+		// 양쪽 다 블랙잭인 경우
+
+		// 배팅금 다시 돌려줌
+		playerMoney += betMoney;
 	}
 
 }
