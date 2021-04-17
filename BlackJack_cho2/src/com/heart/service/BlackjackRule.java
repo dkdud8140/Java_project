@@ -13,7 +13,7 @@ public interface BlackjackRule {
 									//이름 , 초기자본(디폴트)
 	
 	public Integer bettingMoney() ;	// 판돈 걸기
-	public void shuffleDeck() ;		// 덱 셔플				: 유빈
+	public void suffleDeck() ;		// 덱 셔플				: 유빈
 	
 	
 	//TODO 핸드덱 매개변수 변경

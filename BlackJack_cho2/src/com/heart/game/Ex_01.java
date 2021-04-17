@@ -3,20 +3,20 @@ package com.heart.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.heart.impl.BlackJackRuleImplV1;
+import com.heart.impl.BlackJackRule_cho2;
 import com.heart.model.DeckVO;
 import com.heart.service.BlackjackRule;
 
 public class Ex_01 {
 	public static void main(String[] args) {
 
-		BlackjackRule ex = new BlackJackRuleImplV1();
+		BlackjackRule ex = new BlackJackRule_cho2();
 
 		List<DeckVO> playerList = new ArrayList<DeckVO>();
 		List<DeckVO> dealerList = new ArrayList<DeckVO>();
 
 		//1차 배분
-		ex.shuffleDeck();
+		ex.suffleDeck();
 		ex.handDeck(playerList);
 		ex.handDeck(playerList);
 		
@@ -44,7 +44,7 @@ public class Ex_01 {
 		System.out.println("=================");
 		
 		//2차 배분
-		ex.shuffleDeck();
+		ex.suffleDeck();
 		ex.handDeck(playerList);
 		ex.handDeck(playerList);
 		
@@ -73,7 +73,7 @@ public class Ex_01 {
 				
 		
 		//2차 배분
-		ex.shuffleDeck();
+		ex.suffleDeck();
 		ex.handDeck(playerList);
 		ex.handDeck(playerList);
 		

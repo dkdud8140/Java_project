@@ -9,7 +9,6 @@ import com.heart.model.DeckVO2_cho;
 
 public class BlackJackRule_cho2 extends BlackJackRuleImplV1 {
 
-	
 	List<DeckVO> deckList ;
 
 	Random rnd = new Random();
@@ -17,15 +16,11 @@ public class BlackJackRule_cho2 extends BlackJackRuleImplV1 {
 	private int num = 0 ;
 	
 	BlackJackYubin makeDeck ;
-	
 	DeckVO deckVO ;
 	
 	
-	
 	public BlackJackRule_cho2() {
-		
 		makeDeck = new BlackJackYubin();
-		
 		deckVO = new DeckVO() ;
 	}
 
