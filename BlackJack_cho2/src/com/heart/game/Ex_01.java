@@ -8,6 +8,7 @@ import com.heart.model.DeckVO;
 import com.heart.service.BlackjackRule;
 
 public class Ex_01 {
+
 	public static void main(String[] args) {
 
 		BlackjackRule ex = new BlackJackRule_cho2();
@@ -21,7 +22,7 @@ public class Ex_01 {
 			ex.handDeck(playerList);
 
 			int nSizeP = playerList.size();
-			
+
 			for (int i = 0; i < nSizeP; i++) {
 				DeckVO vo = playerList.get(i);
 
@@ -29,7 +30,7 @@ public class Ex_01 {
 				System.out.println(vo.getValue());
 			}
 
-			DeckVO voP = playerList.get(nSizeP-1);
+			DeckVO voP = playerList.get(nSizeP - 1);
 			System.out.println("합 : " + voP.getValueSum());
 			System.out.println();
 			System.out.println("------------------");
@@ -45,7 +46,7 @@ public class Ex_01 {
 				System.out.println(vo.getValue());
 			}
 
-			DeckVO voD = dealerList.get(nSizeD-1);
+			DeckVO voD = dealerList.get(nSizeD - 1);
 			System.out.println("합 : " + voD.getValueSum());
 			System.out.println();
 			System.out.println("=================");

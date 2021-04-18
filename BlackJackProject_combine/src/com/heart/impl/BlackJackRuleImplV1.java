@@ -14,7 +14,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 	protected final int lineNum = 36;
 
 	protected Scanner scan;
-	protected Random rnd = new Random();
+	protected Random rnd;
 
 	protected List<DeckVO> deckList; // 셔플된 덱을 저장하는 리스트
 	private int deckIndex = 0; // deckList에서 하나씩 차례대로 선택할수있도록 참조하는 인덱스값
@@ -32,10 +32,15 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 	protected Integer pSum; // 플레이어 점수 합 변수
 	protected Integer dSum; // 플레이어 점수 합 변수
 
+	protected Boolean bBust;
+
 	public BlackJackRuleImplV1() {
 		scan = new Scanner(System.in);
+		rnd = new Random();
+
 		makeDeck = new BlackJackYubin();
 		deckVO = new DeckVO();
+		deckList = new ArrayList<DeckVO>();
 
 		playerMoney = 10000; // 플레이어의 돈 10000원으로 디폴트값 설정
 	}
@@ -48,7 +53,11 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		System.out.println("*" + "            " + "블랙잭게임" + "            " + "*");
 		System.out.println("*".repeat(lineNum));
 
-		this.inputGamer();
+		playerName = this.inputGamer();
+		if (playerName == null) {
+			System.out.println("\n ** 게임을 종료합니다. ** ");
+			return;
+		}
 
 		while (true) {
 			System.out.println("\n현재" + playerName + "님의 재산은" + playerMoney + "원 입니다.");
@@ -67,7 +76,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 
 			// 게임종료 선택
 			else if (goQuit.equals("QUIT")) {
-				System.out.println("\n게임을 종료합니다.");
+				System.out.println("\n ** 게임을 종료합니다. ** ");
 				return;
 			}
 
@@ -89,6 +98,9 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		makeDeck.createDeck(); // 새 게임이 시작될 때 마다 새로운 덱
 		deckIndex = 0; // 새 게임이 시작될 때 마다 초기화
 
+		pSum = 0; // 새 게임이 시작될 때 마다 플레이어 점수의 합 초기화
+		dSum = 0; // 새 게임이 시작될 때 마다 플레이어 점수의 합 초기화
+
 		playerList = new ArrayList<DeckVO>(); // 새 게임이 시작될 떄 마다 플레이어의 카드리스트 초기화
 		dealerList = new ArrayList<DeckVO>(); // 새 게임이 시작될 떄 마다 딜러의 카드리스트 초기화
 
@@ -96,70 +108,70 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 
 		System.out.println("게임을 시작합니다.");
 
-		betMoney = this.bettingMoney(); // 베팅금 메소드
+		// 베팅금 메소드
+		betMoney = this.bettingMoney();
 
 		System.out.println("\n" + "-".repeat(lineNum * 2));
 		System.out.println("플레이어와 딜러에게 카드를 두 장씩 드립니다.");
 		System.out.println("-".repeat(lineNum * 2));
 
-		this.handDeck(dealerList); // 딜러 카드 리스트에 카드 두 장 추가
+		// 딜러 카드 리스트에 카드 두 장 추가
+		this.handDeck(dealerList);
 		this.handDeck(dealerList);
 
-		System.out.println("딜러의 카드는 다음과 같습니다.");
-		System.out.println(dealerList.get(0).getDeck());
-		System.out.println("????");
-		System.out.println("-".repeat(lineNum * 2));
-
-		this.handDeck(playerList); // 플레이어 카드 리스트에 카드 두 장 추가
+		// 플레이어 카드 리스트에 카드 두 장 추가
+		this.handDeck(playerList);
 		this.handDeck(playerList);
 
-		System.out.println(playerName + "카드는 다음과 같습니다.");
-		System.out.println(playerList.get(0).getDeck());
-		System.out.println(playerList.get(1).getDeck());
-		System.out.println("플레이어의 점수 합 : " + pSum);
-		System.out.println("-".repeat(lineNum * 2));
+		// 블랙잭 확인하기 위한 디버깅 코드
+		DeckVO vo0 = playerList.get(0);
+		vo0.setValue(1);
+		DeckVO vo1 = playerList.get(1);
+		vo1.setValue(10);
 
-		boolean bjPC = this.checkBJ(playerList);
-
-		if (!bjPC) {
-			this.hitAndStand();
+		// 혜미가 임시로 넣은 플레이어 점수 값
+		int nSize = playerList.size();
+		for (int i = 0; i < nSize; i++) {
+			DeckVO vo = playerList.get(i);
+			pSum += vo.getValue();
 		}
 
-//		if (bjPC) { // 플레이어가 블랙잭이라면
-//
-//			if (checkBJ(dealerList)) { // 딜러도 확인해보고 딜러도 블랙잭이라면
-//				this.push(); // 무승부로 돈계산
-//			} else {
-//				this.win_bj(); // 딜러는 블랙잭이 아니라면 플레이어 win으로 돈계산
-//			}
-//
-//		} else if (checkBJ(dealerList)) {
-//			lose(); // 플레이어 lose로 돈계산
-//		} else {
-//			hitAndStand(); // 플레이어, 딜러 둘 다 블랙잭이 아니면 힛앤스탠드 함수 실행
-//		}
+		// 카드 보여주는 메소드
+		this.showCard();
 
-		// bjC == true
+		// 플레이어 블랙잭 판단.
+		boolean bjPC = this.checkBJ(playerList);
+
+		// 플레이어가 블랙잭이 아닐 경우 hit & stand 진행
+		if (bjPC)
+			System.out.println("블랙잭입니다!");
+		else if (!bjPC)
+			this.pHitAndStand();
 
 		boolean bjDC = this.checkBJ(dealerList);
 
-		if (!bjDC) {
-			this.hitAndStand();
+		if (!bjPC && !bjDC) {
+			this.dHitAndStand();
 		}
 
-		// 결과확인창
+		this.gamerMoney(); // 돈 반환
 
+		this.gameResult();
 	}
 
 	@Override
-	public void inputGamer() {
+	public String inputGamer() {
 		// TODO 플레이어의 정보 입력
 
 		System.out.println("-".repeat(lineNum));
-		System.out.println("플레이어의 이름을 입력하세요.");
+		System.out.println("플레이어의 이름을 입력하세요.(QUIT : 종료)");
 		System.out.print(" 이름 입력 >> ");
 		playerName = scan.nextLine();
+		if (playerName.equals("QUIT"))
+			return null;
+
 		System.out.println("-".repeat(lineNum));
+		return playerName;
 
 	}
 
@@ -177,6 +189,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 
 			try {
 				intMoney = Integer.valueOf(strMoney);
+				playerMoney -= intMoney;
 			} catch (NumberFormatException e) {
 				System.out.println("베팅금은 숫자 입력만 가능합니다.");
 				continue;
@@ -193,6 +206,27 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		}
 	}
 
+	protected void showCard() {
+		// 초기 카드 보여주는 메소드
+
+		// 딜러의 카드 보여줌
+		System.out.println("딜러의 카드는 다음과 같습니다.");
+		System.out.println(dealerList.get(0).getDeck());
+		System.out.println("????");
+		System.out.println("-".repeat(lineNum * 2));
+
+		// 플레이어의 카드 보여줌
+		System.out.println(playerName + "의 카드는 다음과 같습니다.");
+		System.out.println(playerList.get(0).getDeck());
+		System.out.println(playerList.get(1).getDeck());
+		if (pSum == 11 && playerList.size() == 2) {
+			System.out.println("블랙잭!");
+		} else {
+			System.out.println("플레이어의 점수 합 : " + pSum);
+		}
+		System.out.println("-".repeat(lineNum * 2));
+	}
+
 	@Override
 	public void shuffleDeck() {
 		// TODO 조아영
@@ -201,14 +235,37 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		 * 하나씩 뽑아내면 deckList는 이미 셔플된 덱의 리스트이기 때문에 랜덤으로 덱을 뽑을 수 있음과 동시에 중복성검사도 할 필요가 없다.
 		 */
 
-		Collections.shuffle(deckList); // deckList의 덱을 셔플하여 다시 deckList에 저장
+//		Collections.shuffle(deckList); 
+
+		int dSize = deckList.size();
+
+		for (int i = 0; i < 50; i++) {
+			int num = rnd.nextInt(dSize);
+			DeckVO vo1 = deckList.get(i);
+			DeckVO voNum = deckList.get(num);
+			DeckVO tempVO = vo1;
+
+			vo1 = voNum;
+			voNum = tempVO;
+
+			deckList.set(i, vo1);
+			deckList.set(num, voNum);
+
+		}
+
+		// 디버깅 코드
+//		for(int i = 0 ; i < dSize ; i ++) {
+//			DeckVO vo = deckList.get(i) ;
+//			System.out.println(vo.toString());
+//		}
 
 	}
 
 	@Override
 	public void handDeck(List<DeckVO> list) {
 		// TODO 조아영
-		// 딜러와 플레이어의 카드 리스트를 매개변수로 받아서 deckList에서 카드정보(카드이름,점수)를 0번부터 차례대로 배분하여 나눠주는 메소드
+		// 딜러와 플레이어의 카드 리스트를 매개변수로 받아서
+		// deckList에서 카드정보(카드이름,점수)를 0번부터 차례대로 배분하여 나눠주는 메소드
 
 		DeckVO vo = deckList.get(deckIndex); // 셔플된 dexkList에서 deckIndex번째 값을 호출하여 vo에 저장
 
@@ -222,9 +279,12 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 	public Boolean checkBJ(List<DeckVO> list) {
 		// TODO 김소정
 
-		if (list.get(0).getValue() == 1 && list.get(1).getValue() == 10) {
+		DeckVO vo0 = list.get(0);
+		DeckVO vo1 = list.get(1);
+
+		if (vo0.getValue() == 1 && vo1.getValue() == 10) {
 			return true;
-		} else if (list.get(1).getValue() == 1 && list.get(0).getValue() == 10) {
+		} else if (vo1.getValue() == 1 && vo0.getValue() == 10) {
 			return true;
 		} else {
 			return false;
@@ -233,7 +293,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 	}
 
 	@Override
-	public void hitAndStand() {
+	public void pHitAndStand() {
 		// TODO 장혜미
 		// 플레이어와 딜러의 히트 스탠드를 진행한다
 
@@ -248,10 +308,13 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 			if (hOs.equals("hit")) {
 				pSum = this.gamerHit(); // 플레이어가 현재 가진 카드합이 리턴되는 메서드
 				if (pSum > 21) {
+					System.out.println("!BUST!");
 					break;
 				}
-				// if 점수가 21이상이면 break, 아니면 반복(이미됨)
+				// if 점수가 21이상(bust)이면 break, 아니면 반복(이미됨)
 			} else if (hOs.equals("stnd")) {
+				System.out.println("-".repeat(lineNum));
+				System.out.println("플레이어가 STAND를 선언했습니다");
 				break;
 			} else {
 				System.out.println("!입력 오류!");
@@ -261,6 +324,11 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 			}
 		} // while end (플레이어)
 
+	}// pHitAndStand end
+
+	@Override
+	public void dHitAndStand() {
+		// TODO 장혜미
 		// 딜러의 진행
 		// 선택지 없이 카드만 공개
 		while (true) {
@@ -268,12 +336,13 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 			if (dSum > 16) {
 				break;
 			}
-		}
+		} // while end (딜러)
+	}// dHitAndStand end
 
-	}// hitAndStand end
-
-	// TODO 히트 스탠드 묻는 메서드
 	protected String askhOs() {
+		// TODO 장혜미
+		// 히트 스탠드 묻는 메서드
+
 		System.out.println("HIT OR STAND?");
 		System.out.println("HIT : hit");
 		System.out.println("STAND : stnd");
@@ -283,9 +352,11 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		return answer;
 	}
 
-	// TODO 플레이어의 카드 점수가 합산되는 히트 메서드
 	protected Integer gamerHit() {
-		this.handDeck(playerList); // 점수 합까지 추가될 예정
+		// TODO 장혜미
+		// 플레이어의 카드 점수가 합산되는 히트 메서드
+
+		this.handDeck(playerList);
 		Integer sum = 0;
 
 		int nSize = playerList.size();
@@ -293,30 +364,57 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 			DeckVO vo = playerList.get(i);
 			sum += vo.getValue();
 		}
-
+		System.out.println("-".repeat(lineNum));
 		for (int i = 0; i < nSize; i++) {
 			System.out.println(playerList.get(i).getDeck());
 		}
 		System.out.println("플레이어의 점수 합 : " + sum);
+		System.out.println("-".repeat(lineNum));
+
 		return sum;
 		// 리턴 썸값
 	}
 
-	// TODO 딜러의 카드 점수가 합산되는 히트 메서드
 	protected Integer dealerHit() {
+		// TODO 장혜미
+		// 딜러의 카드 점수가 합산되는 히트 메서드
+
 		// 딜러 카드 가져오기
 		this.handDeck(dealerList);
 		Integer sum = 0;
+
+		int nSize = dealerList.size();
 		for (int i = 0; i < dealerList.size(); i++) {
 			DeckVO vo = dealerList.get(i);
 			sum += vo.getValue();
 		}
+
+		System.out.println("-".repeat(lineNum));
+		for (int i = 0; i < nSize; i++) {
+			System.out.println(dealerList.get(i).getDeck());
+		}
+		System.out.println("딜러의 점수 합 : " + sum);
+		System.out.println("-".repeat(lineNum));
+
 		return sum;
 	}
 
 	@Override
 	public void gameResult() {
-		// TODO Auto-generated method stub
+		// TODO 게임 결과 화면 출력
+
+		System.out.println("···게임결과···");
+		if (pSum == 11 && playerList.size() == 2) {
+			System.out.println(playerName + " 블랙잭!");
+		} else {
+			System.out.println(playerName + "님의 점수 : " + pSum);
+		}
+		if (dSum == 11 && dealerList.size() == 2) {
+			System.out.println("딜러 블랙잭!");
+		} else {
+			System.out.println("딜러의 점수 : " + dSum);
+		}
+		System.out.println();
 
 	}
 
