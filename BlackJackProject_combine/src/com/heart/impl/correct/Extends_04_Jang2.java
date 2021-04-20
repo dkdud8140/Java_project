@@ -1,10 +1,10 @@
 package com.heart.impl.correct;
 
+import java.util.List;
+
 import com.heart.model.DeckVO;
 
-public class Extends_04_Jang extends Extends_03_Lee {
-
-	// TODO 장혜미
+public class Extends_04_Jang2 extends Extends_03_Lee {
 	// 플레이어와 딜러의 히트 스탠드를 진행한다
 	@Override
 	public void pHitAndStand() {
@@ -17,7 +17,7 @@ public class Extends_04_Jang extends Extends_03_Lee {
 			String hOs = this.askhOs(); // 히트 스탠드를 묻는 프롬프트와 입력받기
 
 			if (hOs.equals("hit")) {
-				voP.setScore(this.gamerHit()); // 플레이어가 현재 가진 카드합이 리턴되는 메서드
+				voP.setScore(this.hit(playerList)); // 플레이어가 현재 가진 카드합이 리턴되는 메서드
 				if (voP.getScore() > 21) {
 					voP.setBust(true);
 					System.out.println("!BUST!");
@@ -48,7 +48,7 @@ public class Extends_04_Jang extends Extends_03_Lee {
 	public void dHitAndStand() {
 		// 선택지 없이 카드만 공개
 		while (true) {
-			voD.setScore(dealerHit());// 딜러 현재 가진 카드합이 리턴되는 메서드
+			voD.setScore(hit(dealerList));// 딜러 현재 가진 카드합이 리턴되는 메서드
 			if (voD.getScore() > 16)
 				break;
 			else if (voD.getScore() == 21)
@@ -70,47 +70,21 @@ public class Extends_04_Jang extends Extends_03_Lee {
 	}
 
 	// TODO 장혜미
-	// 플레이어의 카드 점수가 합산되는 히트 메서드
-	protected Integer gamerHit() {
-
-		this.handDeck(playerList);
+	// 카드 점수가 합산되는 히트 메서드
+	protected Integer hit(List<DeckVO> list) {
+		this.handDeck(list);
 		Integer sum = 0;
 
-		int nSize = playerList.size();
+		int nSize = list.size();
 		for (int i = 0; i < nSize; i++) {
-			DeckVO vo = playerList.get(i);
+			DeckVO vo = list.get(i);
 			sum += vo.getValue();
 		}
 		System.out.println("-".repeat(lineNum));
 		for (int i = 0; i < nSize; i++) {
-			this.showOneCard(playerList, i);
+			System.out.println(list.get(i).getDeck());
 		}
-
-		System.out.println("플레이어의 점수 합 : " + sum);
-		System.out.println("-".repeat(lineNum));
-
-		return sum;
-		// 리턴 썸값
-	}
-
-	// TODO 장혜미
-	// 딜러의 카드 점수가 합산되는 히트 메서드
-	protected Integer dealerHit() {
-		// 딜러 카드 가져오기
-		this.handDeck(dealerList);
-		Integer sum = 0;
-
-		int nSize = dealerList.size();
-		for (int i = 0; i < dealerList.size(); i++) {
-			DeckVO vo = dealerList.get(i);
-			sum += vo.getValue();
-		}
-
-		System.out.println("-".repeat(lineNum));
-		for (int i = 0; i < nSize; i++) {
-			this.showOneCard(dealerList, i);
-		}
-		System.out.println("딜러의 점수 합 : " + sum);
+		System.out.println("점수 합 : " + sum);
 		System.out.println("-".repeat(lineNum));
 
 		return sum;

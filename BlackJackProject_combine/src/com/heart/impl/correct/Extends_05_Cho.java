@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.heart.model.DeckVO;
 
-public class Extends_05_Cho extends Extends_04_Jang {
+public class Extends_05_Cho extends Extends_04_Jang2 {
 
 	// TODO 조아영
 	// 덱을 셔플하는 메소드
