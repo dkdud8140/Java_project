@@ -54,6 +54,9 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		playerMoney = 10000; // 플레이어의 돈 10000원으로 디폴트값 설정
 	}
 
+	
+	
+	
 	@Override
 	public void gameMainScreen() {
 		// TODO 게임 첫 화면
@@ -63,6 +66,8 @@ public class BlackJackRuleImplV1 implements BlackjackRule {
 		System.out.println("*".repeat(lineNum));
 
 		playerName = this.inputGamer();
+		
+		
 		if (playerName == null) {
 			System.out.println("\n ** 게임을 종료합니다. ** ");
 			return;

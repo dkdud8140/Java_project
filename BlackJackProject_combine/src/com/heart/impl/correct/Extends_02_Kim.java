@@ -1,11 +1,11 @@
-package com.heart.impl;
+package com.heart.impl.correct;
 
 import java.util.List;
 
 import com.heart.model.DeckVO;
 
-public class Kim_so_jeong extends BlackJackRuleImpl{
-
+public class Extends_02_Kim extends Extends_01_basic{
+	
 	// TODO 김소정
 		// 블랙잭 판단 메소드
 		@Override
