@@ -1,6 +1,6 @@
 package com.heart.impl.correct;
 
-public class Extends_06_choi extends Extends_05_Cho{
+public class Extends_06_Choi extends Extends_05_Cho{
 
 	// TODO 최선영 돈계산
 		@Override

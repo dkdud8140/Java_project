@@ -331,7 +331,7 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 	
 	
 	
-	// TODO 정혜미
+	// TODO 장혜미
 	// 플레이어와 딜러의 히트 스탠드를 진행한다
 	@Override
 	public void pHitAndStand() {
@@ -369,7 +369,7 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 
 	}// pHitAndStand end
 
-	// TODO 정혜미
+	// TODO 장혜미
 	// 딜러의 히트앤 스탠드 진행
 	@Override
 	public void dHitAndStand() {
@@ -383,7 +383,7 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 		} // while end (딜러)
 	}// dHitAndStand end
 
-	// TODO 정혜미
+	// TODO 장혜미
 	// 히트 스탠드 묻는 메서드
 	protected String askhOs() {
 
@@ -396,7 +396,7 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 		return answer;
 	}
 
-	// TODO 정혜미
+	// TODO 장혜미
 	// 플레이어의 카드 점수가 합산되는 히트 메서드
 	protected Integer gamerHit() {
 
@@ -420,7 +420,7 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 		// 리턴 썸값
 	}
 
-	// TODO 정혜미
+	// TODO 장혜미
 	// 딜러의 카드 점수가 합산되는 히트 메서드
 	protected Integer dealerHit() {
 		// 딜러 카드 가져오기

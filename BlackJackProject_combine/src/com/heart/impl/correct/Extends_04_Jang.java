@@ -2,7 +2,7 @@ package com.heart.impl.correct;
 
 import com.heart.model.DeckVO;
 
-public class Extends_04_Jeong extends Extends_03_Lee{
+public class Extends_04_Jang extends Extends_03_Lee{
 
 	// TODO 장혜미
 		// 플레이어와 딜러의 히트 스탠드를 진행한다
