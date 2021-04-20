@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.heart.impl.BlackJackYubin;
 import com.heart.model.DeckVO;
 import com.heart.model.PlayerVO;
 import com.heart.service.BlackjackRule;
@@ -54,8 +53,6 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 	// 모든 메소드가 콘트롤 되는 장소
 	@Override
 	public void gameMainScreen() {
-		// TODO 게임 첫 화면
-
 		System.out.println("*".repeat(lineNum));
 		System.out.println("*" + "            " + "블랙잭게임" + "            " + "*");
 		System.out.println("*".repeat(lineNum));
@@ -102,8 +99,6 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 	// TODO 게임 플레이 전반을 콘트롤 하는 장소
 	@Override
 	public void playScreen() {
-		// TODO 게임 메소드 호출 장소
-
 		deckList = makeDeck.deckList; // deckList에 original 덱을 생성하여 저장
 		makeDeck.createDeck(); // 새 게임이 시작될 때 마다 새로운 덱
 		deckIndex = 0; // 새 게임이 시작될 때 마다 초기화
@@ -166,7 +161,7 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 
 		voD.setBj(this.checkBJ(dealerList));
 
-		if (!voP.getBj() && !voD.getBj() && !voP.getBust()) {
+		if (!voP.getBj() && !voD.getBj() ) {
 			this.dHitAndStand();
 			if (voD.getScore() > 21)
 				voD.setBust(true);
@@ -449,8 +444,6 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 	//TODO 게임 결과 창
 	@Override
 	public void gameResult() {
-		// TODO 게임 결과 화면 출력
-
 		System.out.println("*".repeat(lineNum));
 		System.out.println("···게임결과···");
 		System.out.println("*".repeat(lineNum));

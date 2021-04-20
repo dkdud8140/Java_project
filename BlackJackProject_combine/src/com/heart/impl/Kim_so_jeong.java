@@ -1,4 +1,4 @@
-package com.heart.impl.correct;
+package com.heart.impl;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.heart.impl.correct.BlackJackRuleImplV2;
 import com.heart.model.PlayerVO;
 
 public class Kim_so_jeong extends BlackJackRuleImplV2 {

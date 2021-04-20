@@ -6,9 +6,11 @@ import com.heart.model.DeckVO;
 
 public class Extends_01_basic extends BlackJackRuleImplV2 {
 
+	
+	// TODO 게임 메인 화면
+	// 모든 메소드가 콘트롤 되는 장소
 	@Override
 	public void gameMainScreen() {
-		// TODO 게임 첫 화면
 
 		System.out.println("*".repeat(lineNum));
 		System.out.println("*" + "            " + "블랙잭게임" + "            " + "*");
@@ -52,10 +54,10 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 
 	}
 
+	
+	// TODO 게임 플레이 전반을 콘트롤 하는 장소
 	@Override
 	public void playScreen() {
-		// TODO 게임 메소드 호출 장소
-
 		deckList = makeDeck.deckList; // deckList에 original 덱을 생성하여 저장
 		makeDeck.createDeck(); // 새 게임이 시작될 때 마다 새로운 덱
 		deckIndex = 0; // 새 게임이 시작될 때 마다 초기화
@@ -82,7 +84,7 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		this.handDeck(playerList);
 		this.handDeck(playerList);
 
-		// 블랙잭 확인하기 위한 디버깅 코드
+	//블랙잭 확인하기 위한 디버깅 코드
 //		DeckVO vo0 = playerList.get(0);
 //		vo0.setValue(1);
 //		DeckVO vo1 = playerList.get(1);
@@ -127,6 +129,8 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 
 	}
 
+	
+	
 	// TODO 플레이어의 정보 입력
 	@Override
 	public String inputGamer() {
@@ -143,6 +147,8 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 
 	}
 
+	
+	
 	// TODO 베팅금 입력 메소드
 	@Override
 	public Integer bettingMoney() {
@@ -175,12 +181,16 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		}
 	}
 
+	
+	
 	// TODO 카드 한 장을 보여주는 메소드
 	protected void showOneCard(List<DeckVO> list, int num) {
 		DeckVO vo = list.get(num);
 		System.out.println(vo.getDeck());
 	}
 
+	
+	
 	// TODO 초기 카드 보여주는 메소드
 	protected void showCard() {
 
@@ -205,9 +215,10 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 	}
 	
 	
+	
+	// TODO 게임 결과 화면 출력
 	@Override
 	public void gameResult() {
-		// TODO 게임 결과 화면 출력
 
 		System.out.println("*".repeat(lineNum));
 		System.out.println("···게임결과···");
@@ -247,6 +258,8 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 
 	}
 
+	
+	
 	// TODO 카드 리스트 보여주는 메소드
 	protected void showResultCard(List<DeckVO> list) {
 
