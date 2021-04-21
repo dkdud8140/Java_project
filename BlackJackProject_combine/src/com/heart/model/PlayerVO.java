@@ -46,6 +46,9 @@ public class PlayerVO {
 	public Integer getScore() {
 		return score;
 	}
+	
+	
+	
 	public void setScore(Integer value) { // 뽑은 카드의 숫자값 매개변수로 받아와서 기존 점수합에 더함
 		this.score += value;
 	}

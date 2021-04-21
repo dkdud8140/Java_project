@@ -123,6 +123,7 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		// 카드 보여주는 메소드
 		this.showCard();
 		
+		
 
 		// 플레이어가 블랙잭이 아닐 경우 hit & stand 진행
 		if (voP.getBj())
@@ -133,6 +134,8 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		//딜러의 블랙잭 판단
 		voD.setBj(this.checkBJ(dealerList));
 
+		
+		
 		
 		//플레이어가 블랙잭이 아니고 딜러가 블랙잭이 아니어야 딜러의 힛앤스탠드가 진행된다.
 		if (!voP.getBj() && !voD.getBj()) {		

@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.heart.model.DeckVO;
 
+
 public class Extends_04_Jang2 extends Extends_03_Lee {
+	
+	
+	
 	// 플레이어와 딜러의 히트 스탠드를 진행한다
 	@Override
 	public void pHitAndStand() {
@@ -18,6 +22,7 @@ public class Extends_04_Jang2 extends Extends_03_Lee {
 
 			if (hOs.equals("hit")) {
 				voP.setScore(this.hit(playerList)); // 플레이어가 현재 가진 카드합이 리턴되는 메서드
+
 				if (voP.getScore() > 21) {
 					voP.setBust(true);
 					System.out.println("!BUST!");
@@ -42,6 +47,9 @@ public class Extends_04_Jang2 extends Extends_03_Lee {
 
 	}// pHitAndStand end
 
+	
+	
+	
 	// TODO 장혜미
 	// 딜러의 히트앤 스탠드 진행
 	@Override
@@ -56,6 +64,10 @@ public class Extends_04_Jang2 extends Extends_03_Lee {
 		} // while end (딜러)
 	}// dHitAndStand end
 
+	
+	
+	
+	
 	// TODO 장혜미
 	// 히트 스탠드 묻는 메서드
 	protected String askhOs() {
@@ -69,6 +81,9 @@ public class Extends_04_Jang2 extends Extends_03_Lee {
 		return answer;
 	}
 
+	
+	
+	
 	// TODO 장혜미
 	// 카드 점수가 합산되는 히트 메서드
 	protected Integer hit(List<DeckVO> list) {
