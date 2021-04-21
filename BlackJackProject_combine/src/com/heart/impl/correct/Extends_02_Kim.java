@@ -137,5 +137,8 @@ public class Extends_02_Kim extends Extends_01_basic {
 		System.out.println("-".repeat(50));
 		return id;
 	}
-
+/*
+* commit추가
+*/
+/*
 }
