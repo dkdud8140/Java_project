@@ -19,7 +19,7 @@ public class BlackJackYubin{
 		strNum = new String[] {"A","2","3","4","5","6","7","8","9","10","K","Q","J"};
 	}
 	
-	public void createDeck(){ 
+	public void createDeck(List<DeckVO> deckList){ 
 		//TODO 카드형식을 만들고 각 카드에 따른 값을 만듬
 		for(int i = 0; i < suit.length ; i++) {
 			for(int j = 0 ; j < strNum.length ; j++) {
