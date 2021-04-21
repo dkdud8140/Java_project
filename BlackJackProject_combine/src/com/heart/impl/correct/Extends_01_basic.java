@@ -16,25 +16,34 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		System.out.println("*" + "            " + "블랙잭게임" + "            " + "*");
 		System.out.println("*".repeat(lineNum));
 
+		// 플레이어의 이름 입력 메소드
+		// 플레이어의 이름을 새로 입력받거
+		// 기존에 저장되어 있는 플레이어를 불러온다.
 		voP.setName(this.inputGamer());
 
+		
+		//inputGamer에서 입력받은 문자열이 QUIT면 게임을 종료한다
 		if (voP.getName() == null) {
 			System.out.println("\n ** 게임을 종료합니다. ** ");
 			return;
 		}
 
+		
+		//게임 선택 메뉴
 		while (true) {
 			System.out.println("\n현재 " + voP.getName() + "님의 재산은 " + voP.getMoney() + "원 입니다.");
 			System.out.println("\n" + "-".repeat(lineNum));
 			System.out.println("게임을 시작하시겠습니까?");
-			System.out.println("▷ GO : 게임하기");
-			System.out.println("▷ QUIT : 그만하기");
+			System.out.println("▷ 1 : 게임하기");
+			System.out.println("▷ 2 : 저장하기");
+			System.out.println("▷ 3 : 그만하기");
 			System.out.println("-".repeat(lineNum));
 			System.out.print(" ▷ ");
 			String goQuit = scan.nextLine();
 
+			
 			// 게임 선택
-			if (goQuit.equals("GO")) {
+			if (goQuit.equals("1")) {
 				this.playScreen();
 			}
 
@@ -72,9 +81,9 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		// 베팅금 메소드
 		betMoney = this.bettingMoney();
 
-		System.out.println("\n" + "-".repeat(lineNum * 2));
+		System.out.println("\n" + "-".repeat(lineNum));
 		System.out.println("플레이어와 딜러에게 카드를 두 장씩 드립니다.");
-		System.out.println("-".repeat(lineNum * 2));
+		System.out.println("-".repeat(lineNum));
 
 		// 딜러 카드 리스트에 카드 두 장 추가
 		this.handDeck(dealerList);
@@ -89,6 +98,10 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 //		vo0.setValue(1);
 //		DeckVO vo1 = playerList.get(1);
 //		vo1.setValue(10);
+		
+		
+		//딜러의 공개된 한장이 A일 경우 플레이어에게 인슈런스 여부 물어봄
+		this.insurance();
 
 		for (int i = 0; i < 2; i++) {
 			DeckVO vo = playerList.get(i);
@@ -109,6 +122,7 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 
 		// 카드 보여주는 메소드
 		this.showCard();
+		
 
 		// 플레이어가 블랙잭이 아닐 경우 hit & stand 진행
 		if (voP.getBj())
@@ -116,9 +130,12 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		else if (!voP.getBj())
 			this.pHitAndStand();
 
+		//딜러의 블랙잭 판단
 		voD.setBj(this.checkBJ(dealerList));
 
-		if (!voP.getBj() && !voD.getBj() && !voP.getBust()) {
+		
+		//플레이어가 블랙잭이 아니고 딜러가 블랙잭이 아니어야 딜러의 힛앤스탠드가 진행된다.
+		if (!voP.getBj() && !voD.getBj()) {		
 			this.dHitAndStand();
 			if (voD.getScore() > 21)
 				voD.setBust(true);

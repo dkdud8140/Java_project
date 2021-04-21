@@ -31,7 +31,10 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 
 	protected int betMoney; // 플레이어가 베팅한 금액
 
-	
+
+	protected boolean inYN; // 인슈어런스 판단 변수
+	protected int inMoney; // 인슈어런스 머니
+
 	
 	
 	// TODO 생성자
@@ -226,6 +229,8 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 		System.out.println(vo.getDeck());
 	}
 
+	
+	
 	// TODO 초기 카드 보여주는 메소드
 	protected void showCard() {
 
@@ -364,6 +369,8 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 
 	}// pHitAndStand end
 
+	
+	
 	// TODO 장혜미
 	// 딜러의 히트앤 스탠드 진행
 	@Override
@@ -497,6 +504,13 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 	// TODO 최선영 돈계산
 	@Override
 	public void gamerMoney() {
+		
+		if(voD.getBj()) {
+			System.out.println("인슈어런스 보상금을 돌려드립니다.");
+			System.out.println( betMoney + "원 지급");
+		}
+			
+		
 		// 플레이어, 딜러 둘 다 블랙잭,BUST 아님
 		// 양 쪽 점수 비교
 		if (voP.getBust()) {
@@ -566,9 +580,8 @@ public class BlackJackRuleImplV2 implements BlackjackRule {
 	
 	
 	// TODO 조아영 인슈런스
-	public Boolean insurance() {
+	public void insurance() {
 		
-		return false ; 
 	}
 	
 	

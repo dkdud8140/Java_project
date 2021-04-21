@@ -53,12 +53,46 @@ public class Extends_05_Cho extends Extends_04_Jang2 {
 		deckIndex++; // deckIndex 값은 handDeck이 실행될때마다 증가
 
 		list.add(vo); // 매개변수로 받아온 list에 뽑은 카드를 추가
+		
+		voP.setScore(vo.getValue());
 
 	}
 
-	public Boolean insurance() {
+	public void insurance() {
 
-		return false;
+		DeckVO vo0 = dealerList.get(0);
+		
+		while (true) {
+			if (vo0.getValue() == 1) {
+				
+				inMoney = betMoney / 2 ;
+				System.out.println("\n"+"-".repeat(lineNum));
+				System.out.println("\n인슈어런스 하시겠습니까?");
+				System.out.println(" Y : 네  /  N : 아니오");
+				String strIn = scan.nextLine();
+
+				if (strIn.equals("Y")) {
+					System.out.println("\n인슈어런스로 " + inMoney + "를 지불하였습니다.");
+					System.out.println("-".repeat(lineNum));
+					voP.setMoney(voP.getMoney() - inMoney );
+					inYN = true;
+					return;
+				} else if (strIn.equals("N")) {
+					System.out.println("\n게임을 계속 진행합니다.");
+					System.out.println("-".repeat(lineNum));
+					return;
+				}
+
+				else {
+					System.out.println("Y 나 N만 입력하세요.");
+					continue;
+				}
+			}
+			
+			else return ;
+
+		} // end while
+
 	}
 
 }
