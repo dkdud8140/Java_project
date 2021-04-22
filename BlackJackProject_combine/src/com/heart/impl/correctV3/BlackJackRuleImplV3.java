@@ -1,30 +1,27 @@
-package com.heart.impl.correct;
+package com.heart.impl.correctV3;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.heart.model.DeckVO;
 import com.heart.model.PlayerVO;
-import com.heart.service.BlackjackRule;
 
-public class BlackJackRuleImplV3 implements BlackjackRule {
+public class BlackJackRuleImplV3 implements BlackjackRule3 {
 
 	protected final int lineNum = 36;
 
 	protected Scanner scan;
 	protected Random rnd;
 
-	protected List<DeckVO> deckList; // 셔플된 덱을 저장하는 리스트
+	protected List<DeckVO3> deckList; // 셔플된 덱을 저장하는 리스트
 	protected int deckIndex = 0; // deckList에서 하나씩 차례대로 선택할수있도록 참조하는 인덱스값
 
-	protected BlackJackYubin makeDeck; // 카드덱을 만드는 메소드가 있는 클래스
-	protected DeckVO deckVO; // 덱VO 객체 생성
+	protected BlackJackYubinV3 makeDeck; // 카드덱을 만드는 메소드가 있는 클래스
+	protected DeckVO3 DeckVO3; // 덱VO 객체 생성
 
-	protected PlayerVO voP; // 플레이어 정보 저장 값
-	protected PlayerVO voD; // 딜러 정보 저장 값
+	protected PlayerVO3 voP; // 플레이어 정보 저장 값
+	protected PlayerVO3 voD; // 딜러 정보 저장 값
 
 	protected int betMoney; // 플레이어가 베팅한 금액
 
@@ -36,12 +33,12 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		scan = new Scanner(System.in);
 		rnd = new Random();
 
-		makeDeck = new BlackJackYubin();
-		deckVO = new DeckVO();
-		deckList = new ArrayList<DeckVO>();
+		makeDeck = new BlackJackYubinV3();
+		DeckVO3 = new DeckVO3();
+		deckList = new ArrayList<DeckVO3>();
 
-		voP = new PlayerVO();
-		voD = new PlayerVO();
+		voP = new PlayerVO3();
+		voD = new PlayerVO3();
 
 		voD.setName("딜러");
 		voP.setMoney(10000);// 플레이어의 돈 10000원으로 디폴트값 설정
@@ -145,9 +142,9 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		this.handDeck(voP);
 
 		// 블랙잭 확인하기 위한 디버깅 코드
-//		DeckVO vo0 = playerList.get(0);
+//		DeckVO3 vo0 = playerList.get(0);
 //		vo0.setValue(1);
-//		DeckVO vo1 = playerList.get(1);
+//		DeckVO3 vo1 = playerList.get(1);
 //		vo1.setValue(10);
 
 		// 플레이어 블랙잭 판단.
@@ -156,22 +153,18 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		// 카드 보여주는 메소드
 		this.showCard();
 
-		
-		//인슈어런스 여부 물어보기
+		// 인슈어런스 여부 물어보기
 		this.insurance();
 
-		
 		// 플레이어가 블랙잭이 아닐 경우 hit & stand 진행
 		if (voP.getBj())
 			System.out.println("블랙잭입니다!");
 		else if (!voP.getBj())
 			this.pHitAndStand();
 
-		
 		// 딜러의 블랙잭 판단
 		voD.setBj(this.checkBJ(voD.getDeckList()));
 
-		
 		// 플레이어가 블랙잭이 아니고 동시에
 		// 딜러가 블랙잭이 아니면 딜러가 힛앤스탠드를 진행한다.
 		if (!voP.getBj() && !voD.getBj()) {
@@ -246,10 +239,10 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 	}
 
 	// TODO 카드 한 장을 보여주는 메소드
-	protected void showOneCard(List<DeckVO> list, int num) {
+	protected void showOneCard(List<DeckVO3> list, int num) {
 
 		// list의 num번째 카드를 보여주는 메소드
-		DeckVO vo = list.get(num);
+		DeckVO3 vo = list.get(num);
 		System.out.println(vo.getDeck());
 	}
 
@@ -298,9 +291,9 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 
 		for (int i = 0; i < 50; i++) {
 			int num = rnd.nextInt(dSize);
-			DeckVO vo1 = deckList.get(i);
-			DeckVO voNum = deckList.get(num);
-			DeckVO tempVO = vo1;
+			DeckVO3 vo1 = deckList.get(i);
+			DeckVO3 voNum = deckList.get(num);
+			DeckVO3 tempVO = vo1;
 
 			vo1 = voNum;
 			voNum = tempVO;
@@ -312,7 +305,7 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 
 		// 디버깅 코드
 //		for(int i = 0 ; i < dSize ; i ++) {
-//			DeckVO vo = deckList.get(i) ;
+//			DeckVO3 vo = deckList.get(i) ;
 //			System.out.println(vo.toString());
 //		}
 
@@ -321,7 +314,7 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 	// TODO 조아영
 	// 카드를 한 장씩 나눠주는 메소드
 	@Override
-	public void handDeck(PlayerVO vo) {
+	public void handDeck(PlayerVO3 vo) {
 
 		// 랜덤셔플된 deckList에서
 		// deckList번째에 해당하는 카드 정보 하나를 불러와서
@@ -333,19 +326,21 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		// 카드를 한 장씩 나눠줄 때 마다
 		// deckList의 deckIndex번째 카드의 점수를
 		// vo의 score에 누적한다.
-		DeckVO vo1 = deckList.get(deckIndex);
+		DeckVO3 vo1 = deckList.get(deckIndex);
 		vo.setAddScore(vo1.getValue());
 
 		deckIndex++; // deckIndex 값은 handDeck이 실행될때마다 증가
 	}
 
+	
+	
 	// TODO 김소정
 	// 블랙잭 판단 메소드
 	@Override
-	public Boolean checkBJ(List<DeckVO> list) {
+	public Boolean checkBJ(List<DeckVO3> list) {
 
-		DeckVO vo0 = list.get(0);
-		DeckVO vo1 = list.get(1);
+		DeckVO3 vo0 = list.get(0);
+		DeckVO3 vo1 = list.get(1);
 
 		if (vo0.getValue() == 1 && vo1.getValue() == 10) {
 			return true;
@@ -399,13 +394,17 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 
 	}// pHitAndStand end
 
+	
+	
+	
 	// TODO 장혜미
 	// 딜러의 히트앤 스탠드 진행
 	@Override
 	public void dHitAndStand() {
 		// 선택지 없이 카드만 공개
 		while (true) {
-			this.hit(voD);;// 딜러 현재 가진 카드합이 리턴되는 메서드
+			this.hit(voD);
+			;// 딜러 현재 가진 카드합이 리턴되는 메서드
 			if (voD.getScore() > 16)
 				break;
 			else if (voD.getScore() == 21)
@@ -413,6 +412,10 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		} // while end (딜러)
 	}// dHitAndStand end
 
+	
+	
+	
+	
 	// TODO 장혜미
 	// 히트 스탠드 묻는 메서드
 	protected String askhOs() {
@@ -427,26 +430,33 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		return answer;
 	}
 
+	
+	
+	
+	
 	// TODO 장혜미
 	// 카드 점수가 합산되는 히트 메서드
-	protected void hit(PlayerVO vo) {
+	protected void hit(PlayerVO3 vo) {
 		this.handDeck(vo);
 
 		int nSize = vo.getDeckList().size();
-		
+
 		System.out.println("-".repeat(lineNum));
-		
+
 		System.out.println(vo.getName() + "의 카드는 다음과 같습니다");
 		for (int i = 0; i < nSize; i++) {
 			System.out.println(vo.getDeckList().get(i).getDeck());
 		}
-		
-		
+
 		System.out.println("점수 합 : " + vo.getScore());
 		System.out.println("-".repeat(lineNum));
 
 	}
 
+	
+	
+	
+	
 	// TODO 게임 결과 창
 	@Override
 	public void gameResult() {
@@ -456,14 +466,18 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		System.out.println("···게임결과···");
 		System.out.println("*".repeat(lineNum));
 		System.out.println();
-		
+
 		printResult(voP);
 		printResult(voD);
 
 	}
 
+	
+	
+	
+	
 	// TODO 결과화면 출력 메소드
-	public void printResult(PlayerVO vo) {
+	public void printResult(PlayerVO3 vo) {
 
 		System.out.println();
 		System.out.println(vo.getName() + "님의 게임결과");
@@ -488,9 +502,13 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		System.out.println("-".repeat(lineNum));
 
 	}
+	
+	
+	
+	
 
 	// TODO 카드 리스트 보여주는 메소드
-	protected void showResultCard(List<DeckVO> list) {
+	protected void showResultCard(List<DeckVO3> list) {
 
 		int nSize = list.size();
 		for (int i = 0; i < nSize; i++) {
@@ -498,6 +516,9 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		}
 	}
 
+	
+	
+	
 	// TODO 최선영 돈계산
 	@Override
 	public void gamerMoney() {
@@ -529,12 +550,20 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 
 	}
 
+	
+	
+	
+	
 	// TODO 최선영 돈계산
 	public void win_bj() {
 		// TODO 플레이어가 블랙잭으로 이겼을 경우
 		System.out.println("\n" + voP.getName() + "님 BlackJack으로 승리");
 		voP.setMoney((int) (voP.getMoney() + (betMoney * 2.5)));
 	}
+	
+	
+	
+	
 
 	// TODO 최선영 돈계산
 	public void win() {
@@ -547,6 +576,9 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		voP.setMoney((voP.getMoney() + (betMoney * 2)));
 	}
 
+	
+	
+	
 	// TODO 최선영 돈계산
 	public void lose() {
 		// TODO 플레이어가 졌을 경우 돈계산
@@ -559,6 +591,9 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		System.out.println("\n" + voP.getName() + "님 패배");
 		return;
 	}
+	
+	
+	
 
 	// TODO 최선영 돈계산
 	public void push() {
@@ -570,13 +605,17 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		System.out.println("\n" + "무 승 부");
 		voP.setMoney((voP.getMoney() + betMoney));
 	}
+	
+	
+	
+	
 
 	// TODO 조아영 인슈런스
 	public void insurance() {
 
 		while (true) {
 
-			DeckVO vo1 = voD.getDeckList().get(0);
+			DeckVO3 vo1 = voD.getDeckList().get(0);
 
 			// 딜러VO 의
 			// deckList(지니고 있는 카드 리스트)의
@@ -630,5 +669,7 @@ public class BlackJackRuleImplV3 implements BlackjackRule {
 		} // end while
 
 	}
+
+
 
 }
