@@ -1,8 +1,5 @@
-package com.heart.impl.correctV3;
+package com.heart.service;
 
-import java.util.List;
-
-import com.heart.model.DeckVO;
 import com.heart.model.PlayerVO;
 
 public interface BlackjackRule3 {
@@ -17,9 +14,9 @@ public interface BlackjackRule3 {
 
 	public void shuffleDeck(); 					// 덱 셔플 : 아영
 
-	public void handDeck(PlayerVO3 vo); 			// 덱 1장씩 배분 : 아영
+	public void handDeck(PlayerVO vo); 			// 덱 1장씩 배분 : 아영
 
-	public Boolean checkBJ(PlayerVO3 vo); 	// 블랙잭 판정 : 소정
+	public Boolean checkBJ(PlayerVO vo); 	// 블랙잭 판정 : 소정
 
 	public void pHitAndStand(); 				// 플레이어 힛 앤 검증 된 판정 : 혜미
 

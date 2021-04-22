@@ -116,11 +116,11 @@ public class BlackJackRuleImplV3 implements BlackjackRule3 {
 		makeDeck.createDeck(deckList); // 새 게임이 시작될 때 마다 새로운 덱
 		deckIndex = 0; // 새 게임이 시작될 때 마다 초기화
 
-		voP.setDeckList(null); // 플레이어가 가진 카드 리스트 초기화
-		voD.setDeckList(null); // 딜러가 가진 카드 리스트 초기화
-
-		voP.setScore(0); // 플레이어의 점수 초기화
-		voD.setScore(0); // 딜러의 점수 초기화
+		//플레이어와 딜러의
+		//(순서대로) 점수의 합, 블랙잭여부, 버스트여부, 더블다운여부, 덱리스트를
+		//최기화
+		voP.resetVO(0, false, false, false, null) ;
+		voD.resetVO(0, false, false, false, null) ;
 
 		this.shuffleDeck(); // 새로운 덱을 셔플하여 deckList에 다시 저장
 

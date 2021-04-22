@@ -1,9 +1,9 @@
-package com.heart.impl.correctV3;
+package com.heart.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerVO3 {
+public class PlayerVO {
 	
 	//TODO 
 	
@@ -16,16 +16,27 @@ public class PlayerVO3 {
 	private Boolean bust; // BUST 여부
 	private Boolean d_Down; // 더블다운 여부
 
-	private List<DeckVO3> deckList;
+	private List<DeckVO> deckList;
 
-	public PlayerVO3() {
+	public PlayerVO() {
 		name = null ;
 		money = 10000 ;
 		score = 0 ;
 		bj = false ;
 		bust = false ;
 		d_Down = false ;
-		deckList = new ArrayList<DeckVO3>();
+		deckList = new ArrayList<DeckVO>();
+	}
+	
+	
+	public PlayerVO(String dealer) {
+		name = "딜러";
+		money = 0 ;
+		score = 0 ;
+		bj = false ;
+		bust = false ;
+		d_Down = false ;
+		deckList = new ArrayList<DeckVO>();
 	}
 	
 	
@@ -35,17 +46,17 @@ public class PlayerVO3 {
 		bust = bust1 ;
 		d_Down = ddown1 ;
 		if(i == null)
-		deckList = new ArrayList<DeckVO3>();
+		deckList = new ArrayList<DeckVO>();
 	}
 	
 
-	public List<DeckVO3> getDeckList() {
+	public List<DeckVO> getDeckList() {
 		return deckList;
 	}
 
-	public void setDeckList(List<DeckVO3> voList, int num) {
+	public void setDeckList(List<DeckVO> voList, int num) {
 
-		DeckVO3 vo1 = voList.get(num) ;
+		DeckVO vo1 = voList.get(num) ;
 		deckList.add(vo1);
 
 	}

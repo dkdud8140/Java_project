@@ -24,7 +24,7 @@ public class Extends_02_Kim extends Extends_01_basic {
 		pVO = new PlayerVO();
 		pVO.setName(this.inputGamer()); 
 		pVO.setMoney(newMoney);
-		this.loadGame(pVO.getName(), pVO.getMoney());
+		this.loadGame(pVO.getName());
 		this.saveGame(pVO.getName(), pVO.getMoney());
 	}
 
@@ -79,7 +79,7 @@ public class Extends_02_Kim extends Extends_01_basic {
 
 	// 파일이름을 불러온다
 	// 건너뛰거나 파일에 문제가있으면 새로운 게임으로 시작한다.
-	public void loadGame(String id, Integer money) {
+	public void loadGame(String id) {
 
 		while (true) {
 			System.out.println("게임을 불러옵니다");
@@ -87,7 +87,6 @@ public class Extends_02_Kim extends Extends_01_basic {
 				System.out.println("게임을 처음부터 시작합니다.");
 				pVO = new PlayerVO();
 				pVO.setName(id);
-				pVO.setMoney(newMoney);
 				return;
 			}
 			FileReader fileReader = null;
@@ -131,6 +130,8 @@ public class Extends_02_Kim extends Extends_01_basic {
 		System.out.print(" 이름 입력 >> ");
 		String id = scan.nextLine();
 
+		this.loadGame(id);
+		
 		if (id.equals("QUIT"))
 			return null;
 
