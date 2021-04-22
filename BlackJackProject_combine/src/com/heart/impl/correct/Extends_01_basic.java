@@ -155,6 +155,8 @@ public class Extends_01_basic extends BlackJackRuleImplV2 {
 		System.out.println("\n" + "-".repeat(lineNum));
 		System.out.println("플레이어의 이름을 입력하세요.(QUIT : 종료)");
 		System.out.print(" 이름 입력 >> ");
+		String strName = scan.nextLine();
+		
 		voP.setName(scan.nextLine());
 		if (voP.getName().equals("QUIT"))
 			return null;
