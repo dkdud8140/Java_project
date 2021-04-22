@@ -11,13 +11,13 @@ import java.util.List;
 import com.heart.model.DeckVO;
 import com.heart.model.PlayerVO;
 
-public class Extends_02_Kim extends Extends_01_basic {
+public class Extends_02_Kimso extends Extends_01_basic {
 
 	protected String basePath = "src/com/heart/game/";
 	protected PlayerVO pVO;
 	protected Integer newMoney = 10000;
 	
-	public Extends_02_Kim() {
+	public Extends_02_Kimso() {
 		// TODO 김소정
 		
 // Test가 안되서 임시로만든 생성자

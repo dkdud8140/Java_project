@@ -8,7 +8,7 @@ public class Ex_01kim {
 
 	public static void main(String[] args) {
 		
-		Extends_02_Kim ex2 = new Extends_02_Kim();
+		Extends_02_Kimso ex2 = new Extends_02_Kimso();
 		
 		
 		
