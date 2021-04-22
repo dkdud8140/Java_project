@@ -1,31 +1,27 @@
-package com.heart.impl.correct;
+package com.heart.impl.correctV3;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import com.heart.model.DeckVO;
+public class BlackJackYubinV3{
 
-public class BlackJackYubin{
-
-	public List<DeckVO> deckList;
+	//public List<DeckVO3> deckList;
 	protected String[] suit;
 	protected String[] strNum;
 	
 	
-	public BlackJackYubin() {
-		deckList= new ArrayList<DeckVO>();
+	public BlackJackYubinV3() {
+		//deckList= new ArrayList<DeckVO3>();
 		suit =  new String[] {"Heart","Diamond","Clover","Space"};
 		strNum = new String[] {"A","2","3","4","5","6","7","8","9","10","K","Q","J"};
 	}
 	
-	public void createDeck(){ 
+	public void createDeck(List<DeckVO3> deckList){ 
 		//TODO 카드형식을 만들고 각 카드에 따른 값을 만듬
 		for(int i = 0; i < suit.length ; i++) {
 			for(int j = 0 ; j < strNum.length ; j++) {
 				String deck = suit[i] + " "  + strNum[j];
 				//Heart A Diamond 2 형식으로
-				DeckVO deckVO = new DeckVO();
+				DeckVO3 deckVO = new DeckVO3();
 				deckVO.setDeck(deck);
 				try {//strNum 을 Integer형으로 바꿈
 					//오류가 없으면 strNum 에 담긴 값은 숫자값 >> 숫가 그대로 
