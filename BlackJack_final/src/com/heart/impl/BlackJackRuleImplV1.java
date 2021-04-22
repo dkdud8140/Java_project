@@ -17,19 +17,21 @@ import com.heart.service.BlackjackRule3;
 
 public class BlackJackRuleImplV1 implements BlackjackRule3 {
 
-	protected String basePath = "src/com/heart/game/";
-
 	protected final int lineNum = 36;
 
 	protected Scanner scan;
 	protected Random rnd;
+	
+	
+	
+	protected String basePath = "src/com/heart/game/";
 
 	protected List<DeckVO> deckList; // 셔플된 덱을 저장하는 리스트
 	protected int deckIndex = 0; // deckList에서 하나씩 차례대로 선택할수있도록 참조하는 인덱스값
 
 	protected BlackJackYubin makeDeck; // 카드덱을 만드는 메소드가 있는 클래스
-	protected DeckVO DeckVO3; // 덱VO 객체 생성
-
+	
+	protected DeckVO deckVO; // 덱VO 객체 생성
 	protected PlayerVO voP; // 플레이어 정보 저장 값
 	protected PlayerVO voD; // 딜러 정보 저장 값
 
@@ -46,7 +48,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 		rnd = new Random();
 
 		makeDeck = new BlackJackYubin();
-		DeckVO3 = new DeckVO();
+		deckVO = new DeckVO();
 		deckList = new ArrayList<DeckVO>();
 
 		voP = new PlayerVO();
@@ -54,6 +56,9 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 
 	}
 
+	
+	
+	
 	// TODO 게임 메인 화면
 	// 모든 메소드가 콘트롤 되는 장소
 	@Override
@@ -163,14 +168,17 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 //		voP.setDeckList();		
 
 		// 플레이어 블랙잭 판단.
-		voP.setBj(this.checkBJ(voP));
+		this.checkBJ(voP);
 
+		
 		// 카드 보여주는 메소드
 		this.showCard();
+		
 
 		// 인슈어런스 여부 물어보기
 		this.insurance();
 
+		
 		// 플레이어가 블랙잭
 		if (voP.getBj())
 			System.out.println("블랙잭입니다!");
@@ -187,7 +195,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 		}
 
 		// 딜러의 블랙잭 판단
-		voD.setBj(this.checkBJ(voD));
+		this.checkBJ(voD);
 
 		// 플레이어가 블랙잭이 아니고 동시에
 		// 딜러가 블랙잭이 아니면 딜러가 힛앤스탠드를 진행한다.
@@ -233,8 +241,10 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 	public void DoubleDown() {
 		voP.setD_Down(true);// true 로 변경
 		this.handDeck(voP);// 악 한장만 받고 끝
+		
 		int sum = voP.getMoney() - betMoney;
 		voP.setMoney(sum);
+		
 		betMoney *= 2; // 베팅금 2배로
 		System.out.println("더블다운하셨으므로 베팅금이 두배가 됩니다.");
 
@@ -363,6 +373,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 		this.showOneCard(voP.getDeckList(), 0);
 		this.showOneCard(voP.getDeckList(), 1);
 
+		
 		// 만약에 플레이어가 블랙잭이라면
 		if (voP.getBj()) {
 			// 블랙잭 선언
@@ -391,7 +402,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 
 		int dSize = deckList.size();
 
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 500; i++) {
 			int num = rnd.nextInt(dSize);
 			DeckVO vo1 = deckList.get(i);
 			DeckVO voNum = deckList.get(num);
@@ -437,7 +448,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 	// TODO 김소정
 	// 블랙잭 판단 메소드
 	@Override
-	public Boolean checkBJ(PlayerVO vo) {
+	public void checkBJ(PlayerVO vo) {
 
 		List<DeckVO> voList0 = vo.getDeckList();
 		DeckVO vo0 = voList0.get(0);
@@ -446,12 +457,10 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 		DeckVO vo1 = voList1.get(1);
 
 		if (vo0.getValue() == 1 && vo1.getValue() == 10) {
-			return true;
+			vo.setBj(true);
 		} else if (vo1.getValue() == 1 && vo0.getValue() == 10) {
-			return true;
-		} else {
-			return false;
-		}
+			vo.setBj(true);
+		} 
 
 	}
 
@@ -480,10 +489,11 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 				}
 
 				else if (voP.getScore() == 21)
+					System.out.println("Perfect");
 					break;
 
 				// if 점수가 21이상(bust)이면 break, 아니면 반복(이미됨)
-			} else if (hOs.equals("stnd")) {
+			} else if (hOs.equals("stand")) {
 				System.out.println("-".repeat(lineNum));
 				System.out.println("플레이어가 STAND를 선언했습니다");
 				break;
@@ -529,7 +539,7 @@ public class BlackJackRuleImplV1 implements BlackjackRule3 {
 		System.out.println();
 		System.out.println("HIT OR STAND?");
 		System.out.println("HIT : hit");
-		System.out.println("STAND : stnd");
+		System.out.println("STAND : stand");
 		System.out.print(">> ");
 		String answer = scan.nextLine();
 

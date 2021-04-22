@@ -18,6 +18,7 @@ public class PlayerVO {
 
 	private List<DeckVO> deckList;
 
+	
 	public PlayerVO() {
 		name = null ;
 		money = 10000 ;
@@ -30,7 +31,7 @@ public class PlayerVO {
 	
 	
 	public PlayerVO(String dealer) {
-		name = "딜러";
+		name = dealer;
 		money = 0 ;
 		score = 0 ;
 		bj = false ;
@@ -54,12 +55,15 @@ public class PlayerVO {
 		return deckList;
 	}
 
+	
 	public void setDeckList(List<DeckVO> voList, int num) {
 
 		DeckVO vo1 = voList.get(num) ;
 		deckList.add(vo1);
 
 	}
+	
+	
 
 	public String getName() {
 		return name;
