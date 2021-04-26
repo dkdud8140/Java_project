@@ -49,23 +49,23 @@ public class Extends_04_Jang extends Extends_03_Lee{
 	@Override
 	public void dHitAndStand() {
 
-		// 선택지 없이 카드만 공개
-		while (true) {
-			this.hit(voD);
-			;// 딜러 현재 가진 카드합이 리턴되는 메서드
-			if (voD.getScore() > 16)
-				break;
+	      // 선택지 없이 카드만 공개
+	      while (true) {
+	         // 딜러 현재 가진 카드합이 리턴되는 메서드
+	         if (voD.getScore() > 16) {
+	            break;
+	         } else {
+	            this.hit(voD);
+	         }
+	      } // while end (딜러)
 
+	      // 만약 딜러가 버스트라면
+	      // voD의 bust판단 변수를 true로 처리하여 결과에서
+	      // Bust때 딜러의 승리로 판정되지 않도록 한다.
+	      if (voD.getScore() > 21)
+	         voD.setBust(true);
 
-		} // while end (딜러)
-
-		// 만약 딜러가 버스트라면
-		// voD의 bust판단 변수를 true로 처리하여 결과에서
-		// Bust때 딜러의 승리로 판정되지 않도록 한다.
-		if (voD.getScore() > 21)
-			voD.setBust(true);
-
-	}// dHitAndStand end
+	   }
 
 	
 	

@@ -23,18 +23,18 @@ public class Extends_02_Kim extends Extends_01_basic {
 			System.out.println("플레이어의 이름을 입력하세요.(QUIT : 종료)");
 			System.out.print(" 이름 입력 >> ");
 			String id = scan.nextLine();
+			voP.setName(id);
 			if (id.trim().equals("")) {
 				System.out.println("아이디는 빈칸으로 사용하실 수 없습니다");
 				continue;
 			}
-
+			
 			if (id.trim().equalsIgnoreCase("QUIT")) {
 				voP.setName(id);
 				break;
 			}
 
 			this.loadGame(id);
-			voP.setName(id);
 
 			break;
 		} // while end
